@@ -1,6 +1,8 @@
-var nodeExternals = require('webpack-node-externals')
+const nodeExternals = require('webpack-node-externals')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
+  mode: 'none',
   module: {
     rules: [
       {
@@ -11,6 +13,13 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ]
       }
     ]
   },
@@ -19,5 +28,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     }
-  }
+  },
+  plugins: [
+    new VueLoaderPlugin()
+  ]
 }
